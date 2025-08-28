@@ -14,10 +14,11 @@ dependencies {
     implementation("org.seleniumhq.selenium:selenium-java:4.22.0")
 
     // WebDriverManager to automatically download and manage browser drivers
-    implementation("io.github.bonigarcia:webdrivermanager:5.9.1")
+    implementation("io.github.bonigarcia:webdrivermanager:6.2.0")
 
-    // TestNG for our test framework
     testImplementation("org.testng:testng:7.10.2")
+
+    testImplementation("org.slf4j:slf4j-simple:2.0.13")
 }
 
 tasks.test {
