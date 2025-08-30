@@ -9,9 +9,9 @@ import java.time.Duration;
 
 public class EditPostPage extends BasePage {
     private String postId;
-    private final By postStatusDropdown = By.id("react-select-9-input");
+    private final By postStatusDropdown = By.id("react-select-2-input");
     private final By allDropdowns = By.xpath("//input[contains(@id, 'react-select')]"); //todo use this to extract the react-select-X for click and later options
-    private final String reactSelectStatusOptionByText = "//div[contains(@id, 'react-select-9-option') and text()='%s']";
+    private final String reactSelectStatusOptionByText = "//div[contains(@id, 'react-select-2-option') and text()='%s']";
     private final By saveButton = By.cssSelector("[data-testid='button-save']");
 
 

@@ -4,12 +4,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.time.Duration;
 
 public class ShowPostPage extends BasePage {
-    private final By editButton = By.cssSelector("[data-testid='action-edit']");
     private String postId;
+    private final By editButton = By.cssSelector("[data-testid='action-edit']");
+    private final By statusBy = By.xpath("//section[@data-testid='property-show-status']/.//following-sibling::span");
+
 
     public ShowPostPage(WebDriver driver, String postId) {
         super(driver, String.format("resources/Post/records/%s/show", postId));
@@ -18,9 +21,16 @@ public class ShowPostPage extends BasePage {
                 .until(ExpectedConditions.visibilityOfElementLocated(editButton));
     }
 
+    public String getPostId() {
+        return this.postId;
+    }
+
     public EditPostPage editPost() {
         driver.findElement(editButton).click();
         return new EditPostPage(driver, postId);
+    }
 
+    public void validateStatus(String expectedStatus) {
+        Assert.assertEquals(driver.findElement(statusBy).getText(), expectedStatus, "Post status doesn't match expected");
     }
 }

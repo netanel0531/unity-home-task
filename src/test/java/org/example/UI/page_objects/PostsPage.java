@@ -4,13 +4,16 @@ package org.example.UI.page_objects;
  * It contains methods for creating, linking, editing, and verifying a post.
  */
 
+import org.example.UI.Exceptions.PostNotFoundException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import java.util.List;
 
 public class PostsPage extends BasePage {
     private final By newPostButton = By.cssSelector("[data-testid='action-new']");
@@ -37,6 +40,7 @@ public class PostsPage extends BasePage {
     private final By postsTableRow = By.cssSelector("[data-css='Post-table-row']");
     private final String postsTableTitleByText = "//td[data-css='Post-list-title'] and text()='%s'";
     private final String postIdByTitle = "//section[@data-testid='property-list-title' and text()='%s']/../following-sibling::td[@data-property-name='id']";
+    private final By nextPostsPage = By.cssSelector("[data-testid='next']");
 
     public PostsPage(WebDriver driver) {
         super(driver, "resources/Post");
@@ -79,27 +83,23 @@ public class PostsPage extends BasePage {
 
 
     public ShowPostPage openShowPostPage(String title) {
-        //todo navigate through the pages until finding the relevant post.
-        // Navigates to the post's edit page
         By postRowLocator = By.xpath(String.format(postIdByTitle, title));
-        WebElement postIdTableCell = driver.findElement(postRowLocator);
+        WebElement postIdTableCell = null;
+        do {
+            try {
+                postIdTableCell = driver.findElement(postRowLocator);
+            } catch (NoSuchElementException e) {
+                try {
+                    driver.findElement(nextPostsPage).click();
+                } catch (NoSuchElementException noNextPage) {
+                    System.out.println(String.format("No next page and post title %s haven't found", title));
+                    throw new PostNotFoundException(noNextPage.getMessage());
+                }
+            }
+        } while (postIdTableCell == null);
+
         String postId = postIdTableCell.getText();
         postIdTableCell.click();
         return new ShowPostPage(driver, postId);
-    }
-
-    public void savePost() {
-        driver.findElement(saveButton).click();
-    }
-
-    public String getPostStatus() {
-        // Navigates to the post's view page to get the status
-        // TODO: Replace with the actual URL of the post's view page
-        // For example: driver.get("http://your-app-url.com/post/view/123");
-
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(postStatusText));
-
-        return driver.findElement(postStatusText).getText();
     }
 }
