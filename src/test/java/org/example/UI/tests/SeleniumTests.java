@@ -25,7 +25,7 @@ public class SeleniumTests {
     }
 
     @Test
-    public void createPublisherTest() {
+    public void unityAssignmentTest() {
         // Login to the system using the given username and password
         System.out.println("Login as an admin");
         LoginPage loginPage = new LoginPage(driver);
