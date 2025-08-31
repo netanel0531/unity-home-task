@@ -11,7 +11,8 @@ repositories {
 
 dependencies {
     // Selenium Java bindings for browser automation
-    implementation("org.seleniumhq.selenium:selenium-java:4.22.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.35.0")
+    implementation("org.seleniumhq.selenium:selenium-devtools-v139:4.35.0")
 
     // WebDriverManager to automatically download and manage browser drivers
     implementation("io.github.bonigarcia:webdrivermanager:6.2.0")
