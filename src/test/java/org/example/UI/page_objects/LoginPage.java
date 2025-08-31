@@ -19,6 +19,11 @@ public class LoginPage extends BasePage {
                 .until(ExpectedConditions.visibilityOfElementLocated(loginButton));
     }
 
+    /**
+     * Perform a login using a given username and password.
+     * @param username
+     * @param password
+     */
     public void login(String username, String password) {
         // Clear and fill the username
         driver.findElement(usernameInput).clear();
@@ -28,7 +33,7 @@ public class LoginPage extends BasePage {
         driver.findElement(passwordInput).clear();
         driver.findElement(passwordInput).sendKeys(password);
 
-        // Login
+        // Click Login
         driver.findElement(loginButton).click();
 
         // Wait and assert successfully login.

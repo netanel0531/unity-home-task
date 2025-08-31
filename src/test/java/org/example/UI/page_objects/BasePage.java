@@ -1,3 +1,6 @@
+/*
+ * This Page Object is a base page for all other pages.
+ */
 package org.example.UI.page_objects;
 
 import org.openqa.selenium.WebDriver;

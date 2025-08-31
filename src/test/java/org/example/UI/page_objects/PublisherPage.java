@@ -20,10 +20,19 @@ public class PublisherPage extends BasePage {
                 .until(ExpectedConditions.visibilityOfElementLocated(newPublisherButton));
     }
 
+    /**
+     * Create a publisher with only the mandatory field (email).
+     * @param email
+     */
     public void createPublisher(String email) {
         createPublisher(email, null);
     }
 
+    /**
+     * Create a new publisher with the given email and name.
+     * @param email
+     * @param name
+     */
     public void createPublisher(String email, String name) {
         // Open the new publisher form
         driver.findElement(newPublisherButton).click();

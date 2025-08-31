@@ -1,5 +1,6 @@
 package org.example.UI.page_objects;
 
+import org.example.UI.enums.PostStatus;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -25,12 +26,20 @@ public class ShowPostPage extends BasePage {
         return this.postId;
     }
 
+    /**
+     * Open the edit page of the current post.
+     * @return an instance represents the edit page of the post.
+     */
     public EditPostPage editPost() {
         driver.findElement(editButton).click();
         return new EditPostPage(driver, postId);
     }
 
-    public void validateStatus(String expectedStatus) {
-        Assert.assertEquals(driver.findElement(statusBy).getText(), expectedStatus, "Post status doesn't match expected");
+    /**
+     * Validate the status of the current post against an expected status.
+     * @param expectedStatus the expected status.
+     */
+    public void validateStatus(PostStatus expectedStatus) {
+        Assert.assertEquals(driver.findElement(statusBy).getText(), expectedStatus.getText(), "Post status doesn't match expected");
     }
 }
