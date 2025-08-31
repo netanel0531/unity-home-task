@@ -13,8 +13,6 @@ import org.testng.annotations.Test;
 
 public class SeleniumTests {
     private WebDriver driver;
-    private final String publisherName = "Test Publisher " + System.currentTimeMillis();
-    private final String postTitle = "Test Post " + System.currentTimeMillis();
     private final String admin_username = "admin@example.com";
     private final String admin_password = "password";
 
@@ -35,6 +33,7 @@ public class SeleniumTests {
 
         // Create a new Publisher
         System.out.println("Creating a Publisher...");
+        String publisherName = "Test Publisher " + System.currentTimeMillis();
         PublisherPage publisherPage = new PublisherPage(driver);
         publisherPage.createPublisher(publisherName);
         System.out.println("Publisher created: " + publisherName);

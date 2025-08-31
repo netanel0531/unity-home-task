@@ -14,6 +14,7 @@ public class EditPostPage extends BasePage {
     private final By allDropdowns = By.xpath("//input[contains(@id, 'react-select')]"); //todo use this to extract the react-select-X for click and later options
     private final String reactSelectStatusOptionByText = "//div[contains(@id, 'react-select-2-option') and text()='%s']";
     private final By saveButton = By.cssSelector("[data-testid='button-save']");
+    private final By addJSON = By.cssSelector("[data-testid='someJson-add']");
 
     public EditPostPage(WebDriver driver, String postId) {
         super(driver, String.format("resources/Post/records/%s/edit", postId));
@@ -27,6 +28,8 @@ public class EditPostPage extends BasePage {
      * @param newStatus the new status to set.
      */
     public void updateStatus(PostStatus newStatus) {
+        driver.findElement(addJSON).click(); //This should not be mandatory, this is the bug mentioned in the Test
+
         driver.findElement(postStatusDropdown).click();
         // Construct the XPath to find the option with the desired text
         By statusOptionLocator = By.xpath(String.format(reactSelectStatusOptionByText, newStatus.getText()));
