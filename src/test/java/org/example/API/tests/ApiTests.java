@@ -1,4 +1,4 @@
-package org.example.UI.tests;
+package org.example.API.tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
